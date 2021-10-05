@@ -113,11 +113,12 @@
     //En cas de no trobar el color, fes que es mostri un missatge d’error.
 
     $colors = array("blau", "vermell", "groc", "verd", "gris");
-    //MANERA 1
-    $position = 0;
-    $color = "groc";
+    $color = "blau";
     $trobat = false;
-
+    //MANERA 1
+    /*
+    $position = 0;  
+    $trobat = false;
 
     foreach ($colors as $key => $colorDinsLarray) {
         if ($colorDinsLarray == $color) {
@@ -126,23 +127,47 @@
         }
     }
 
-
-
-
     if ($trobat) {
         echo "Color " . $color . " trobat a l'array en posició [" . $position . "].";
     } else {
         echo "Color no trobat a l'array.";
     }
     echo "</br>";
+
+    */
+
     //MANERA 2
 
+    echo "Manera 2:</br>";
     $indice = array_search($color, $colors, false);
-    if ($indice != null) {
+    if ($indice !== false) {
         echo "Color " . $color . " trobat a la posició [" . $indice . "]";
     } else {
         echo "Color no trobat";
     }
+    echo "</br>";
+
+    //MANERA 3
+
+    $iterador = 0;
+    while (!$trobat && $iterador <= count($colors)) {
+
+        if ($colors[$iterador] == $color) {
+            $trobat = true;
+        }
+        if (!$trobat) {
+            $iterador++;
+        }
+    }
+
+
+    if ($trobat) {
+        echo "manera 3</br>";
+        echo "Color " . $color . " trobat a l'array en posició [" . $iterador . "].";
+    } else {
+        echo "Color no trobat a l'array.";
+    }
+
 
     echo "</br>";
     echo "</br>";
@@ -150,6 +175,7 @@
     //i mostra en una pàgina web l’índex on es troba i el nom de la persona.
 
     $personasArray = [
+        //KEY            //VALOR
         "465867960A"  => "Marc Pérez",
         "465867961B"  => "Maria Alonso",
         "465867962C"  => "Anna Fernández",
@@ -157,16 +183,30 @@
         "465867964E"  => "Jordi Escribà"
     ];
 
+    // MAnera 1 
+    /*
     $trobat = false;
     $dniBuscar = "465867963D";
     foreach ($personasArray as $key => $persona) {
         if ($key == $dniBuscar) {
-            echo "DNI: ".$dniBuscar." es de: ".$personasArray[$key];
+            echo "DNI: " . $dniBuscar . " es de: " . $personasArray[$key];
             $trobat = true;
         }
     }
     if (!$trobat) {
         echo "Aquest dni no esta associat a ningú";
+    }
+*/
+    echo "Buscar DNI en array";
+
+    //Manera 2
+    $dniBuscar = "465867963D";
+
+    $indice = array_search($dniBuscar, array_keys($personasArray));
+    if ($indice !== false) { // Ponemos !== porque si el dni a buscar coincide con indice 0 o 1, puede dar a confusion con true o false
+        echo "DNI  " . $dniBuscar . " trobat a la posició [" . $indice . "] nom associat : " . $personasArray[$dniBuscar];
+    } else {
+        echo "DNI no trobat.";
     }
 
 
